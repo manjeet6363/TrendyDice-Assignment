@@ -1,15 +1,15 @@
 {
   "files": {
     "main.css": "/TrendyDice-Assignment/static/css/main.073c9b0a.css",
-    "main.js": "/TrendyDice-Assignment/static/js/main.2b4f0bfb.js",
+    "main.js": "/TrendyDice-Assignment/static/js/main.e32a4f79.js",
     "static/js/787.493aa34a.chunk.js": "/TrendyDice-Assignment/static/js/787.493aa34a.chunk.js",
     "index.html": "/TrendyDice-Assignment/index.html",
     "main.073c9b0a.css.map": "/TrendyDice-Assignment/static/css/main.073c9b0a.css.map",
-    "main.2b4f0bfb.js.map": "/TrendyDice-Assignment/static/js/main.2b4f0bfb.js.map",
+    "main.e32a4f79.js.map": "/TrendyDice-Assignment/static/js/main.e32a4f79.js.map",
     "787.493aa34a.chunk.js.map": "/TrendyDice-Assignment/static/js/787.493aa34a.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.073c9b0a.css",
-    "static/js/main.2b4f0bfb.js"
+    "static/js/main.e32a4f79.js"
   ]
 }
