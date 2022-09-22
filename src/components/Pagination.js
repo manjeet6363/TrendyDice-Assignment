@@ -13,9 +13,9 @@ export default function Pagination({postsPerPage, totalPosts, paginate}) {
         <ul className="pagination">
             {pageNumbers.map(number => (
             <li key={number} className="page-item">
-                <a href='!#' className='page-link' onClick={()=> paginate(number)}>
+                <p className='page-link' onClick={()=> paginate(number)} style={{cursor: "pointer"}}>
                     {number}
-                </a>
+                </p>
             </li>
             ))}
         </ul>
