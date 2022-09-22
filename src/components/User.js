@@ -1,12 +1,23 @@
 import React from "react";
 import { useState, useEffect } from "react";
+import Pagination from "./Pagination";
 
-export default function User() {
+export default function User(props) {
   const [users, setUsers] = useState([]);
   const [users1, setUsers1] = useState([]);
-  const [users2, setUsers2] = useState([]);
   const [search, setSearch] = useState("");
-  const [toggle, setToggle] = useState(true)
+  const [toggle, setToggle] = useState(true);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [postPerPage] = useState(10);
+
+  const paidMark = (e) => {
+    users1[e-1].is_paid = true
+    const filterItem = users1.filter((currElem) => {
+      return currElem.is_paid === false
+    })
+    props.showAlert(`${users1[e-1].first_name+" "+ users1[e-1].last_name} Amount Paid`);
+      setUsers(filterItem)
+  }
 
   const toggleBtn = () =>{
     setToggle(!toggle)
@@ -36,14 +47,21 @@ export default function User() {
       const parsedData = await data.json();
       setUsers(parsedData.users);
       setUsers1(parsedData.users);
-      setUsers2(parsedData.users);
     };
     getDetails();
   }, []);
 
+  // Get current posts
+  const indexOfLastPost = currentPage * postPerPage;
+  const indexOfFirstPost = indexOfLastPost - postPerPage;
+  const currentPost = users.slice(indexOfFirstPost, indexOfLastPost);
+
+  // Change page
+  const paginate = (pageNumber) => setCurrentPage(pageNumber)
+
   return (
     <div className="container">
-      <div className="d-flex justify-content-end">
+      <div className="d-flex justify-content-end my-3">
         <input
             className="form-control w-25 mx-4"
           type="text"
@@ -66,7 +84,7 @@ export default function User() {
           
         </div>
       </div>
-      <table className="table">
+      <table className="table table-bordered">
         <thead>
           <tr>
             <th>Name</th>
@@ -76,7 +94,7 @@ export default function User() {
           </tr>
         </thead>
         <tbody>
-          {users
+          {currentPost
             .filter((val) => {
               let firstName = val.first_name.toLowerCase();
               let lastName = val.last_name.toLowerCase();
@@ -97,15 +115,18 @@ export default function User() {
                 <tr key={data.id}>
                   <td>{data.first_name + " " + data.last_name}</td>
                   <td>{data.email_id}</td>
-                  <td>{data.is_paid.toString()}</td>
+                  <td>{data.is_paid ? "Yes" : "No"}</td>
                   <td>
-                    {data.is_paid ? "" : <button className="btn btn-primary">Mark as Paid</button>}
+                    {data.is_paid ? "" : <button className="btn btn-dark" onClick={(e) => paidMark(data.id)}>Mark as Paid</button>}
                   </td>
                 </tr>
               );
             })}
         </tbody>
       </table>
+      <div>
+        <Pagination postsPerPage={postPerPage} totalPosts={users.length} paginate={paginate} />
+      </div>
     </div>
   );
 }
